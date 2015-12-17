@@ -1,6 +1,8 @@
 branch-defaults:
   default:
     environment: googleMapsParameter
+  master:
+    environment: googleMapsParameter
 global:
   application_name: google-maps-parameters
   default_ec2_keyname: null
