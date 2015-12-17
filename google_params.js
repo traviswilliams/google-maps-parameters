@@ -62,7 +62,7 @@ var createParams = function() {
 };
 
 var generateUrl = function() {
-	var url = "https://maps.google.com/";
+	var url = "https://www.google.com/maps";
 	var params = "";
 
 	for(var i = 0; i < googleParams.length; i++) {
