@@ -1,8 +1,8 @@
 //https://moz.com/ugc/everything-you-never-wanted-to-know-about-google-maps-parameters
 var googleParams = [
 		{ id: "ie", text: "Input Encoding", type: "select", values: [ { id: "UTF8", text: "Default: UTF8" } ] },
-		{ id: "f", text: "Display", type: "select", values: [ { id: "", text: "Default"}, { id: "q", text: "standard" }, { id: "d", text: "Directions" }, { id: "l", text: "Local" } ] },
-		{ id: "dirflg", text: "Route Options", type: "select", values: [ { id: "", text: "Default"}, { id: "h", text: "No Motorways"}, { id: "r", text: "Public Transit"}, { id: "rB", text: "Public Transit - Prefer Bus"}, { id: "w", text: "Walking"} ] },
+		{ id: "f", text: "Display", type: "select", values: [ { id: "", text: "Default"}, { id: "q", text: "standard" }, { id: "d", text: "Directions", default: "y" }, { id: "l", text: "Local" } ] },
+		{ id: "dirflg", text: "Route Options", type: "select", values: [ { id: "", text: "Default"}, { id: "h", text: "No Motorways"}, { id: "r", text: "Public Transit", default: "y" }, { id: "rB", text: "Public Transit - Prefer Bus"}, { id: "w", text: "Walking"} ] },
 		{ id: "q", text: "Location", type: "text", value: "" },
 		{ id: "near", text: "Nearby", type: "text", value: "" },
 		{ id: "z", text: "Zoom", type: "select", values: [ { id: "", text: "Default"}, { id: "11", text: "11"}, { id: "12", text: "12"}, { id: "13", text: "13"}, { id: "14", text: "14"}, { id: "15", text: "15"}, { id: "16", text: "16"}, { id: "17", text: "17"}, { id: "18", text: "18"}, { id: "19", text: "19"} ] },
@@ -33,9 +33,12 @@ var getOptionHtml = function(option) {
 		if(option.values) {
 			for(var i = 0; i < option.values.length; i++) {
 				var item = option.values[i];
+
 				if(!item)
 					continue;
-				html += "<option id='" + item.id + "'>" + item.text + "</option>";
+
+				var defaultText = (item.default && item.default === 'y') ? "selected='selected'" : "";
+				html += "<option id='" + item.id + "' " + defaultText + ">" + item.text + "</option>";
 			}
 		}
 
@@ -102,6 +105,7 @@ var updateResultLink = function() {
 
 $(function() {
 	buildForm();
+	updateResultLink();
 
 	$("input[type=text]").on("blur", function() {
 		updateResultLink();
@@ -111,6 +115,4 @@ $(function() {
 	});
 
 	$("#createParam").click(createParams);
-
-	alert(generateUrl());
 });
